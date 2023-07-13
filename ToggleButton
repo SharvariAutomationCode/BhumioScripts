@@ -1,0 +1,23 @@
+from selenium import webdriver
+from playwright.sync_api import sync_playwright
+
+# Launch the Playwright browser
+with sync_playwright() as playwright:
+    browser_type = playwright.chromium
+    browser = browser_type.launch()
+
+    # Create a Selenium WebDriver using the Playwright browser
+    driver = webdriver.Chrome(browser=playwright.chromium)
+
+    # Navigate to the webpage with the toggle button
+    driver.get("https://example.com")
+
+    # Assuming the toggle button element has a specific selector, you can use it to locate the element
+    toggle_button = driver.find_element_by_css_selector(".toggle-button")
+
+    # Get the value of the toggle button
+    value = toggle_button.get_attribute("value")
+
+    print("Toggle button value:", value)
+
+    driver.quit()
