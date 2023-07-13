@@ -1,0 +1,32 @@
+from selenium import webdriver
+from playwright.sync_api import sync_playwright
+
+# Launch the Playwright browser
+with sync_playwright() as playwright:
+    browser_type = playwright.chromium
+    browser = browser_type.launch()
+
+    # Create a Selenium WebDriver using the Playwright browser
+    driver = webdriver.Chrome(browser=playwright.chromium)
+
+    # Navigate to the webpage with the autocomplete input field
+    driver.get("https://example.com")
+
+    # Assuming the autocomplete input field has a specific selector, you can use it to locate the element
+    autocomplete_input = driver.find_element_by_css_selector(".autocomplete-input")
+
+    # Type a value into the autocomplete input field
+    autocomplete_input.send_keys("Value to autocomplete")
+
+    # Wait for the autocomplete suggestions to appear (adjust the waiting time if needed)
+    driver.implicitly_wait(5)
+
+    # Assuming the autocomplete suggestions have a specific selector, you can use it to locate the elements
+    autocomplete_suggestions = driver.find_elements_by_css_selector(".autocomplete-suggestion")
+
+    # Extract the values from the autocomplete suggestions
+    values = [suggestion.get_attribute("value") for suggestion in autocomplete_suggestions]
+
+    print("Autocomplete values:", values)
+
+    driver.quit()
