@@ -1,0 +1,18 @@
+from selenium import webdriver
+
+# Create a new instance of the Chrome driver
+driver = webdriver.Chrome()
+
+# Navigate to the webpage with the slider
+driver.get("https://example.com")
+
+# Assuming the slider element has a specific selector, you can use it to locate the element
+slider = driver.find_element_by_css_selector(".slider")
+
+# Get the value of the slider
+value = slider.get_attribute("value")
+
+print("Slider value:", value)
+
+# Close the browser
+driver.quit()
